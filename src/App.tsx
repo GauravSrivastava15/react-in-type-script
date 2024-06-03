@@ -5,9 +5,7 @@ function App() {
   return (
    <>
    <div>
-      <Box  heading="This is to check"    >
-        <button>Click me</button>
-      </Box>
+      <Box  label="Search" value={""} onChange={() => {}}/>
 
    </div>
    </>

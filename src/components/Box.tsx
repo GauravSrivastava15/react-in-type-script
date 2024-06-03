@@ -1,21 +1,15 @@
-import { ReactNode } from "react";
+
+type InputValType = string | number
 
 
-type PropsType = {
-    heading: string;
-    count?: number;
-    children: ReactNode
-}
-
-
-const Box = ({heading, count, children}: PropsType) => {
+const Box = <T extends InputValType>({label, value, onChange}:{label:string, value:T, onChange: () => void}) => {
     
   return (
-    <div>
-        <h1>{heading}</h1>
-        {count && <p>{count}</p>}
-        {children}
-    </div>
+    <form>
+        <label>{label}</label>
+        <input type="text" value={value} onChange={onChange}></input>
+        <button type="submit">Submit</button>
+    </form>
   )
 }
 

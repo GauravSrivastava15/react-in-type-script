@@ -8,7 +8,7 @@ const Box = <T extends InputValType>({label, value, onChange}:{label:string, val
     <form>
         <label></label>
         <input type="text" value={value} onChange={onChange}></input>
-        <button type="submit">Submit</button>
+        <button type="submit">Submit the value</button>
     </form>
   )
 }

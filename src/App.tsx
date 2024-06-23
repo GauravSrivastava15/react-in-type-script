@@ -1,38 +1,38 @@
-import { FormEvent, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
+import Box from "./components/box";
 
-interface Person {
-  name: string;
-  age: number;
+type ThemeType = "light" | "dark";
+
+interface ThemeContextType {
+  theme: ThemeType;
+  toggleTheme: () => void;
 }
 
-function App() {
-  const [user, setUser] = useState<Person>();
-  const submitHandler = (e:FormEvent<HTMLFormElement>) =>{
-    e.preventDefault()
-    console.log(user)
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  toggleTheme: () => {},
+});
+
+const ThemeProvider = ({ children }: { children: ReactNode }) => {
+
+  const [theme, setTheme] = useState<ThemeType>("light")
+
+  const toggleTheme = () =>{
+    setTheme((prev) => (prev === "light" ? "dark" : "light"))
   }
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <input
-          type="number"
-          placeholder="Age"
-          value={user?.age || ""}
-          onChange={(e) =>
-            setUser((prev) => ({ ...prev!, age: Number(e.target.value) }))
-          }
-        />
-        <input
-          type="text"
-          placeholder="Name"
-          value={user?.name || ""}
-          onChange={(e) =>
-            setUser((prev) => ({ ...prev!, name: e.target.value }))
-          }
-        />
-        <button type="submit">Register</button>
-      </form>
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+function App() {
+  return (
+    <ThemeProvider>
+      <div>hello</div>
+      <Box />
+    </ThemeProvider>
   );
 }
 
